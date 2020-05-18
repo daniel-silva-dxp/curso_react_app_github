@@ -1,2 +1,2 @@
-# react-webpack
-Repositório para armazenamento do conteúdo do Módulo 2 - React + Webpack
+# Curso React - Github APP
+Conceitos e tipos de componentes com React, criando um app (GitHub)
