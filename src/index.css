@@ -154,9 +154,9 @@ button {
 	transition: all 0.2s ease-out;
 }
 .btn-medium {
+	width: 130px;
 	height: 35px;
 	line-height: 35px;
-	padding: 0 20px;
 	border-radius: 3px;
 	font-size: 12px;
 }
