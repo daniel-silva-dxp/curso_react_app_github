@@ -4,8 +4,8 @@ import React from 'react';
 const Actions = () => {
 	return (
 		<div className="actions">
-			<button className="btn btn-medium color-btn">Ver repositórios</button>
-			<button className="btn btn-medium color-btn">Ver favoritos</button>
+			<button className="btn btn-medium color-btn">Repositórios</button>
+			<button className="btn btn-medium color-btn">Favoritos</button>
 		</div>
 	);
 };
