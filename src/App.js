@@ -8,11 +8,11 @@ class App extends React.Component {
 		this.state = {
 			userInfo: {
 				username: 'Daniel Silva',
-				userimg: 'https://avatars1.githubusercontent.com/u/16245261?v=4',
-				userlogin: 'daniel-silva-dxp',
-				userrepos: 45,
-				userfollowers: 4,
-				userfollowing: 15
+				photo: 'https://avatars1.githubusercontent.com/u/16245261?v=4',
+				login: 'daniel-silva-dxp',
+				repos: 45,
+				followers: 4,
+				following: 15
 			},
 			repos: [ { name: 'Nome do repositório', link: '#' } ],
 			starred: [ { name: 'Nome do repositório', link: '#' } ]
