@@ -11,6 +11,11 @@ class App extends React.Component {
 			starred: []
 		};
 	}
+	getGitHubApiUrl(username, type) {
+		const internalUser = username ? `/${username}` : '';
+		const internalType = type ? `/${type}` : '';
+		return `https://api.github.com/users${internalUser}${internalType}`;
+	}
 	handleSearch(e) {
 		const value = e.target.value;
 		const keyCode = e.which || e.keyCode;
@@ -18,7 +23,7 @@ class App extends React.Component {
 
 		if (keyCode === ENTER) {
 			if (value) {
-				fetch(`https://api.github.com/users/${value}`).then((data) => data.json()).then((data) => {
+				fetch(this.getGitHubApiUrl(value)).then((data) => data.json()).then((data) => {
 					this.setState({
 						userInfo: {
 							username: data.name,
@@ -27,17 +32,24 @@ class App extends React.Component {
 							repos: data.public_repos,
 							followers: data.followers,
 							following: data.following
-						}
+						},
+						repos: [],
+						starred: []
 					});
 				});
 			} else {
-				this.setState({ userInfo: null });
+				this.setState({
+					userInfo: null,
+					repos: [],
+					starred: []
+				});
 			}
 		}
 	}
 	getRepos(type) {
 		return (e) => {
-			fetch(`https://api.github.com/users/daniel-silva-dxp/${type}`).then((data) => data.json()).then((repo) => {
+			const login = this.state.userInfo.login;
+			fetch(this.getGitHubApiUrl(login, type)).then((data) => data.json()).then((repo) => {
 				this.setState({
 					[type]: repo.map((data) => {
 						return {
