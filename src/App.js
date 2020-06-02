@@ -8,7 +8,8 @@ class App extends React.Component {
 		this.state = {
 			userInfo: null,
 			repos: [],
-			starred: []
+			starred: [],
+			message: 'nenhum usuário do GitHub pesquisado.'
 		};
 	}
 	getGitHubApiUrl(username, type) {
@@ -23,25 +24,33 @@ class App extends React.Component {
 
 		if (keyCode === ENTER) {
 			if (value) {
-				fetch(this.getGitHubApiUrl(value)).then((data) => data.json()).then((data) => {
-					this.setState({
-						userInfo: {
-							username: data.name,
-							photo: data.avatar_url,
-							login: data.login,
-							repos: data.public_repos,
-							followers: data.followers,
-							following: data.following
-						},
-						repos: [],
-						starred: []
+				let target = e.target;
+				target.disabled = true;
+				fetch(this.getGitHubApiUrl(value))
+					.then((data) => data.json())
+					.then((data) => {
+						this.setState({
+							userInfo: {
+								username: data.name,
+								photo: data.avatar_url,
+								login: data.login,
+								repos: data.public_repos,
+								followers: data.followers,
+								following: data.following
+							},
+							repos: [],
+							starred: []
+						});
+					})
+					.finally(() => {
+						target.disabled = false;
 					});
-				});
 			} else {
 				this.setState({
 					userInfo: null,
 					repos: [],
-					starred: []
+					starred: [],
+					message: 'insira um nome de usuário do GitHub para pesquisa.'
 				});
 			}
 		}
@@ -71,6 +80,7 @@ class App extends React.Component {
 				handleSearch={(e) => this.handleSearch(e)}
 				getRepos={this.getRepos('repos')}
 				getStarreds={this.getRepos('starred')}
+				message={this.state.message}
 			/>
 		);
 	}
