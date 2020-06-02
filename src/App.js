@@ -35,6 +35,21 @@ class App extends React.Component {
 			}
 		}
 	}
+	getRepos(type) {
+		return (e) => {
+			fetch(`https://api.github.com/users/daniel-silva-dxp/${type}`).then((data) => data.json()).then((repo) => {
+				this.setState({
+					[type]: repo.map((data) => {
+						return {
+							name: data.name,
+							id: data.id,
+							link: data.html_url
+						};
+					})
+				});
+			});
+		};
+	}
 	render() {
 		return (
 			<AppContent
@@ -42,8 +57,8 @@ class App extends React.Component {
 				repos={this.state.repos}
 				starred={this.state.starred}
 				handleSearch={(e) => this.handleSearch(e)}
-				getRepos={() => console.log('GET REPOS')}
-				getStarreds={() => console.log('GET STARREDS')}
+				getRepos={this.getRepos('repos')}
+				getStarreds={this.getRepos('starred')}
 			/>
 		);
 	}
