@@ -1,11 +1,15 @@
 'use strict';
 import React from 'react';
 
-const Actions = () => {
+const Actions = ({ getRepos, getStarreds }) => {
 	return (
 		<div className="actions">
-			<button className="btn btn-medium color-btn">Repositórios</button>
-			<button className="btn btn-medium color-btn">Favoritos</button>
+			<button onClick={getRepos} className="btn btn-medium color-btn">
+				Repositórios
+			</button>
+			<button onClick={getStarreds} className="btn btn-medium color-btn">
+				Favoritos
+			</button>
 		</div>
 	);
 };
