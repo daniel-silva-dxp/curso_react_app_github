@@ -1,26 +1,15 @@
 'use strict';
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-const Search = () => {
+const Search = ({ handleSearch }) => {
 	return (
 		<div className="search box-wrapper">
-			<input
-				type="search"
-				placeholder="Digite o nome do usuário do Github"
-				onKeyUp={(e) => {
-					const value = e.target.value;
-					const keyCode = e.which || e.keyCode;
-					const ENTER = 13;
-
-					if (keyCode === ENTER) {
-						fetch(`https://api.github.com/users/${value}`).then((data) => data.json()).then((data) => {
-							console.log(data.login);
-						});
-					}
-				}}
-			/>
+			<input type="search" placeholder="Digite o nome do usuário do Github" onKeyUp={handleSearch} />
 		</div>
 	);
 };
 
+Search.propType = {
+	handleSearch: PropTypes.func.isRequired
+};
 export default Search;

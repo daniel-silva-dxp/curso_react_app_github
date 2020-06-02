@@ -6,20 +6,44 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			userInfo: {
-				username: 'Daniel Silva',
-				photo: 'https://avatars1.githubusercontent.com/u/16245261?v=4',
-				login: 'daniel-silva-dxp',
-				repos: 45,
-				followers: 4,
-				following: 15
-			},
-			repos: [ { name: 'Nome do repositório', link: '#' } ],
-			starred: [ { name: 'Nome do repositório', link: '#' } ]
+			userInfo: null,
+			repos: [],
+			starred: []
 		};
 	}
+	handleSearch(e) {
+		const value = e.target.value;
+		const keyCode = e.which || e.keyCode;
+		const ENTER = 13;
+
+		if (keyCode === ENTER) {
+			if (value) {
+				fetch(`https://api.github.com/users/${value}`).then((data) => data.json()).then((data) => {
+					this.setState({
+						userInfo: {
+							username: data.name,
+							photo: data.avatar_url,
+							login: data.login,
+							repos: data.public_repos,
+							followers: data.followers,
+							following: data.following
+						}
+					});
+				});
+			} else {
+				this.setState({ userInfo: null });
+			}
+		}
+	}
 	render() {
-		return <AppContent userInfo={this.state.userInfo} repos={this.state.repos} starred={this.state.starred} />;
+		return (
+			<AppContent
+				userInfo={this.state.userInfo}
+				repos={this.state.repos}
+				starred={this.state.starred}
+				handleSearch={(e) => this.handleSearch(e)}
+			/>
+		);
 	}
 }
 
