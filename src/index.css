@@ -73,6 +73,12 @@ code {
 	align-items: center;
 	justify-content: center;
 }
+.box-padding {
+	width: 100%;
+	padding: 20px;
+	text-align: center;
+	text-transform: uppercase;
+}
 .box-wrapper {
 	background-color: #fff;
 	-webkit-box-shadow: 0px 1px 1px 0px rgba(35, 36, 38, 0.3);
