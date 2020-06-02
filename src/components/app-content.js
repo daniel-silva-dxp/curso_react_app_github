@@ -6,11 +6,12 @@ import Actions from './actions';
 import Repos from './repos';
 import RenderMessage from './renderMessage';
 
-const AppContent = ({ userInfo, repos, starred, handleSearch, getRepos, getStarreds, message }) => {
+const AppContent = ({ userInfo, repos, starred, handleSearch, getRepos, getStarreds, message, isFetching }) => {
 	return (
 		<div className="app">
-			<Search handleSearch={handleSearch} />
+			<Search isDisabled={isFetching} handleSearch={handleSearch} />
 			<div className="container">
+				{isFetching && <div>Carregando...</div>}
 				{!!userInfo && <UserInfo userInfo={userInfo} />}
 				{!!userInfo && <Actions getRepos={getRepos} getStarreds={getStarreds} />}
 				{!!repos.length && <Repos className="repos box-wrapper" title="Repositório:" repos={repos} />}

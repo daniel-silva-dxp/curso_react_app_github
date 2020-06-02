@@ -9,7 +9,8 @@ class App extends React.Component {
 			userInfo: null,
 			repos: [],
 			starred: [],
-			message: 'nenhum usuário do GitHub pesquisado.'
+			message: 'nenhum usuário do GitHub pesquisado.',
+			isFetching: false
 		};
 	}
 	getGitHubApiUrl(username, type) {
@@ -24,8 +25,7 @@ class App extends React.Component {
 
 		if (keyCode === ENTER) {
 			if (value) {
-				let target = e.target;
-				target.disabled = true;
+				this.setState({ isFetching: true });
 				fetch(this.getGitHubApiUrl(value))
 					.then((data) => data.json())
 					.then((data) => {
@@ -42,9 +42,7 @@ class App extends React.Component {
 							starred: []
 						});
 					})
-					.finally(() => {
-						target.disabled = false;
-					});
+					.finally(() => this.setState({ isFetching: false }));
 			} else {
 				this.setState({
 					userInfo: null,
@@ -77,6 +75,7 @@ class App extends React.Component {
 				userInfo={this.state.userInfo}
 				repos={this.state.repos}
 				starred={this.state.starred}
+				isFetching={this.state.isFetching}
 				handleSearch={(e) => this.handleSearch(e)}
 				getRepos={this.getRepos('repos')}
 				getStarreds={this.getRepos('starred')}
