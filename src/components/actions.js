@@ -1,5 +1,5 @@
 'use strict';
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const Actions = ({ getRepos, getStarreds }) => {
 	return (
@@ -12,6 +12,11 @@ const Actions = ({ getRepos, getStarreds }) => {
 			</button>
 		</div>
 	);
+};
+
+Actions.propType = {
+	getRepos: PropTypes.func.isRequired,
+	getStarreds: PropTypes.func.isRequired
 };
 
 export default Actions;
